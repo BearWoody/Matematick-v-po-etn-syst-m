@@ -1,0 +1,58 @@
+def eratosthenes(n):
+    sieve = [True] * (n + 1)
+    for p in range(2, int(n**0.5) + 1):
+        if sieve[p]:
+            for i in range(p**2, n + 1, p):
+                sieve[i] = False
+    return [p for p in range(2, n + 1) if sieve[p]]
+
+
+option = 0
+while option != 5:
+    option = int(input("Vyberte možnost: \n1) Zápis nového textu \n2) Přepis textu \n3) Přečtení vybraného řádku \n4) Eratosthenovo síto na konkrétním řádku \n5) Ukončení programu" ))
+
+    if option == 1:
+        text = input("Zadejte text, který chcete zapsat do souboru: ")
+        with open("example.txt", "a") as file:
+            file.write(text)
+            file.write("\n")
+
+    elif option == 2:
+        line_num = int(input("Zadejte číslo řádku, který chcete přepsat: "))
+        new_text = input("Zadejte nový text pro tento řádek: ")
+        with open("example.txt", "r") as file:
+            lines = file.readlines()
+
+        with open("example.txt", "w") as file:
+            for i, line in enumerate(lines):
+                if i == line_num - 1:
+                    file.write(new_text + "\n")
+                else:
+                    file.write(line)
+
+    elif option == 3:
+        line_num = int(input("Zadejte číslo řádku, který chcete přečíst: "))
+        with open("example.txt", "r") as file:
+            lines = file.readlines()
+            O = lines[line_num - 1]
+            print(f"Text na řádku {line_num}: {O}")
+
+    elif option == 4:
+        line_num = int(input("Zadejte číslo řádku, pro který chcete vypočítat eratosthenovo síto: "))
+        with open("example.txt", "r") as file:
+            lines = file.readlines()
+            try:
+                n = int(lines[line_num - 1])
+            except ValueError:
+                print(f"Na řádku {line_num} se nenachází platné celé číslo.")
+                continue
+
+        primes = eratosthenes(n)
+        print(f"Prvočísla menší nebo rovna {n}: {primes}")
+
+    elif option == 5:
+        print("Ukončuji program.")
+
+    else:
+        print("Neplatná volba.")
+
