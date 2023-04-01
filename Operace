@@ -1,3 +1,4 @@
+# Funkce pro erathesonovo síto
 def eratosthenes(n):
     sieve = [True] * (n + 1)
     for p in range(2, int(n**0.5) + 1):
@@ -8,8 +9,15 @@ def eratosthenes(n):
 
 
 option = 0
+
 while option != 5:
-    option = int(input("Vyberte možnost: \n1) Zápis nového textu \n2) Přepis textu \n3) Přečtení vybraného řádku \n4) Eratosthenovo síto na konkrétním řádku \n5) Ukončení programu" ))
+    while True:
+        try:
+            option = int(input("Vyberte možnost: \n1) Zápis nového textu \n2) Přepis textu \n3) Přečtení vybraného řádku \
+                        \n4) Eratosthenovo síto na konkrétním řádku \n5) Ukončení programu\n Zadejte svojí možnost: "))
+            break
+        except ValueError:
+            print("Zadejte pouze celá čísla.")
 
     if option == 1:
         text = input("Zadejte text, který chcete zapsat do souboru: ")
@@ -38,7 +46,8 @@ while option != 5:
             print(f"Text na řádku {line_num}: {O}")
 
     elif option == 4:
-        line_num = int(input("Zadejte číslo řádku, pro který chcete vypočítat eratosthenovo síto: "))
+        line_num = int(
+            input("Zadejte číslo řádku, pro který chcete vypočítat eratosthenovo síto: "))
         with open("example.txt", "r") as file:
             lines = file.readlines()
             try:
@@ -55,4 +64,3 @@ while option != 5:
 
     else:
         print("Neplatná volba.")
-
