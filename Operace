@@ -1,3 +1,5 @@
+# Funkce pro erathesonovo síto
+
 def eratosthenes(n):
     sieve = [True] * (n + 1)
     for p in range(2, int(n**0.5) + 1):
@@ -8,22 +10,34 @@ def eratosthenes(n):
 
 
 option = 0
+
 while option != 5:
-    option = int(input("Vyberte možnost: \n1) Zápis nového textu \n2) Přepis textu \n3) Přečtení vybraného řádku \n4) Eratosthenovo síto na konkrétním řádku \n5) Ukončení programu" ))
+    while True:
+        try:
+            option = int(input("Vyberte možnost: \n1) Zápis nového textu \n2) Přepis textu \n3) Přečtení vybraného řádku \
+                        \n4) Eratosthenovo síto na konkrétním řádku \n5) Ukončení programu\n Zadejte svojí možnost: "))
+            break
+        except ValueError:
+            print("Zadejte pouze celá čísla.")
 
     if option == 1:
         text = input("Zadejte text, který chcete zapsat do souboru: ")
-        with open("example.txt", "a") as file:
+        with open("data.txt", "a") as file:
             file.write(text)
             file.write("\n")
 
-    elif option == 2:
-        line_num = int(input("Zadejte číslo řádku, který chcete přepsat: "))
+    elif option == 2: 
+        while True:
+            try:
+                line_num = int(input("Zadejte číslo řádku, který chcete přepsat: "))
+                break
+            except ValueError:
+                print("Zadejte pouze celá čísla")
         new_text = input("Zadejte nový text pro tento řádek: ")
-        with open("example.txt", "r") as file:
+        with open("data.txt", "r") as file:
             lines = file.readlines()
 
-        with open("example.txt", "w") as file:
+        with open("data.txt", "w") as file:
             for i, line in enumerate(lines):
                 if i == line_num - 1:
                     file.write(new_text + "\n")
@@ -31,15 +45,26 @@ while option != 5:
                     file.write(line)
 
     elif option == 3:
-        line_num = int(input("Zadejte číslo řádku, který chcete přečíst: "))
-        with open("example.txt", "r") as file:
+        while True:
+            try:
+                line_num = int(input("Zadejte číslo řádku, který chcete přečíst: "))
+                break
+            except ValueError:
+                print("Zadejte pouze celá čísla.")
+                
+        with open("data.txt", "r") as file:
             lines = file.readlines()
             O = lines[line_num - 1]
             print(f"Text na řádku {line_num}: {O}")
 
     elif option == 4:
-        line_num = int(input("Zadejte číslo řádku, pro který chcete vypočítat eratosthenovo síto: "))
-        with open("example.txt", "r") as file:
+        while True:
+            try:
+                line_num = int(input("Zadejte číslo řádku, pro který chcete vypočítat eratosthenovo síto: "))
+                break
+            except ValueError:
+                print("Zadejte pouze celá čísla.")
+        with open("data.txt", "r") as file:
             lines = file.readlines()
             try:
                 n = int(lines[line_num - 1])
@@ -55,4 +80,3 @@ while option != 5:
 
     else:
         print("Neplatná volba.")
-
